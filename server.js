@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const pokemon = require("./models/pokemon");
+const Pokemon = require("./models/pokemon");
 const { connect, connection } = require('mongoose');
 
 
@@ -41,11 +41,11 @@ app.get("/", (req, res) => {
   });
 
   // Index
-  app.get('/pokemon', async(req, res) => {
+  app.get("/pokemon", async (req, res) => {
     console.log("index route")
     try {
       const foundPokemon = await Pokemon.find({})
-      res.status(200).render("Index", {pokemons:foundPokemon});
+      res.status(200).render("Index", {pokemon: foundPokemon});
       
     } catch (error) {
       res.status(400).send(error)    
