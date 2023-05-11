@@ -10,7 +10,7 @@ class Index extends React.Component {
           <div style={myStyle}>
             <h1>See All The Pokemon!</h1>
             <ul>
-              {pokemons.map((pokemon, i) => {
+              {pokemon.map((pokemon, i) => {
                 return (
                   <li key={i}>
                     <a href={`/pokemon/${pokemon._id}`}>{pokemon.name}</a>

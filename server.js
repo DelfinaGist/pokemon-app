@@ -44,13 +44,26 @@ app.get("/", (req, res) => {
   app.get("/pokemon", async (req, res) => {
     console.log("index route")
     try {
-      const foundPokemon = await Pokemon.find({})
+      const foundPokemon = await Pokemon.find({});
       res.status(200).render("Index", {pokemon: foundPokemon});
       
     } catch (error) {
       res.status(400).send(error)    
     }
   });
+
+  //Show
+  app.get('/pokemon/:id', (req, res) => {
+    res.send(req.params.id);
+  });
+  
+  //Show
+// app.get('/vegetables/:id', function(req, res){
+//   res.render('vegetables/ShowVegetables', {
+//     vegetable: vegetables[req.params.id]
+//   })
+// })
+
 
 // Listen
 app.listen(PORT, () => {
