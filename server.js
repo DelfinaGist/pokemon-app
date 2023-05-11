@@ -56,14 +56,6 @@ app.get("/", (req, res) => {
   app.get('/pokemon/:id', (req, res) => {
     res.send(req.params.id);
   });
-  
-  //Show
-// app.get('/vegetables/:id', function(req, res){
-//   res.render('vegetables/ShowVegetables', {
-//     vegetable: vegetables[req.params.id]
-//   })
-// })
-
 
 // Listen
 app.listen(PORT, () => {
