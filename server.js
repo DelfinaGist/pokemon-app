@@ -29,12 +29,10 @@ app.set('views', './views');
 app.use(express.urlencoded({ extended: false })); // This enables the req.body
 
 // Custom Middleware
-// app.use((req, res, next) => {
-//   console.log('Middleware running...');
-//   next();
-// });
-
-
+app.use((req, res, next) => {
+  console.log('Middleware running...');
+  next();
+});
 
 app.get("/", (req, res) => {
     res.send("Welcome to the Pokemon App!");
@@ -44,17 +42,38 @@ app.get("/", (req, res) => {
   app.get("/pokemon", async (req, res) => {
     console.log("index route")
     try {
-      const foundPokemon = await Pokemon.find({});
-      res.status(200).render("Index", {pokemon: foundPokemon});
-      
+      // const foundPokemon = await Pokemon.find({});
+      // res.status(200).render("Index", {pokemon: foundPokemon});
+      res.render("Index", {pokemon: Pokemon})
     } catch (error) {
       res.status(400).send(error)    
     }
   });
 
+//   // New // renders a form to create a new fruit
+// app.get('/pokemon/new', (req, res) => {
+//   res.render('New');
+// });
+
+// // Create // recieves info from new route to then create a new fruit w/ it
+// app.post('/', async (req, res) => {
+//   try {
+//     req.body.readyToEat = req.body.readyToEat === 'on';
+//     const newFruit = await Fruit.create(req.body);
+//     console.log(newFruit);
+//     //console.log(fruits);
+//     // redirect is making a GET request to whatever path you specify
+//     res.redirect('/fruits');
+//   } catch (err) {
+//     res.status(400).send(err);
+//   }
+// });
+
   //Show
-  app.get('/pokemon/:id', (req, res) => {
-    res.send(req.params.id);
+  app.get('/pokemon/:id', async (req, res) => {
+    // const foundPokemon = await Pokemon(req.params.id)
+    // console.log("foundPokemon", foundPokemon)
+    res.render("Show", {pokemon: Pokemon[req.params.id]})
   });
 
 // Listen
