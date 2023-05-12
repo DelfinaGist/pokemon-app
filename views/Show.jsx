@@ -7,7 +7,12 @@ class Show extends React.Component {
     console.log("show..", pokemon)
     return (
       <div>
-        <h1> Show Page ... Yay! </h1>
+         <h1>See All The Pokemon!</h1>
+        <h1> "Gotta Catch 'Em All" </h1>
+        <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
+        <img src={`${pokemon.img}.jpg`} alt={pokemon.name} />
+        {/* <img src={`${pokemon.img}.jpg`} /> <br /> */}
+        <a href="/pokemon" style={{fontSize: '15pt', color: `#5f51fe`}}>Go Back</a>
       </div>
     )
   }

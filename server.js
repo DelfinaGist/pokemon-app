@@ -71,11 +71,11 @@ app.get("/", (req, res) => {
 
   //Show
   app.get('/pokemon/:id', async (req, res) => {
-    // const foundPokemon = await Pokemon(req.params.id)
-    // console.log("foundPokemon", foundPokemon)
     res.render("Show", {pokemon: Pokemon[req.params.id]})
   });
-
+    // const foundPokemon = await Pokemon(req.params.id)
+    // console.log("foundPokemon", foundPokemon)
+    
 // Listen
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
