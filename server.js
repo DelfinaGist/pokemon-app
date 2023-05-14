@@ -28,11 +28,13 @@ app.set('views', './views');
 // Middleware
 app.use(express.urlencoded({ extended: false })); // This enables the req.body
 
-// Custom Middleware
-app.use((req, res, next) => {
-  console.log('Middleware running...');
-  next();
-});
+// // Custom Middleware
+// app.use((req, res, next) => {
+//   console.log('Middleware running...');
+//   next();
+// });
+
+
 
 app.get("/", (req, res) => {
     res.send("Welcome to the Pokemon App!");
@@ -40,21 +42,28 @@ app.get("/", (req, res) => {
 
   // Index
   app.get("/pokemon", async (req, res) => {
-    console.log("index route")
     try {
-      // const foundPokemon = await Pokemon.find({});
-      // res.status(200).render("Index", {pokemon: foundPokemon});
-      res.render("Index", {pokemon: Pokemon})
-    } catch (error) {
-      res.status(400).send(error)    
+      const foundPokemon = await Pokemon.find({});
+      res.render("Index", {pokemon: foundPokemon});
+    } catch (err) {
+      res.status(400).send(err);  
     }
   });
 
-//   // New // renders a form to create a new fruit
-// app.get('/pokemon/new', (req, res) => {
-//   res.render('New');
-// });
+  // New // renders a form to create a new fruit
+app.get("/pokemon/new", (req, res) => {
+  res.render("New");
+});
 
+//Create
+app.post("/pokemon/create", async (req, res) => {
+  try {
+    await Pokemon.create(req.body);
+    res.redirect("/pokemon");
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 // // Create // recieves info from new route to then create a new fruit w/ it
 // app.post('/', async (req, res) => {
 //   try {
@@ -71,10 +80,17 @@ app.get("/", (req, res) => {
 
   //Show
   app.get('/pokemon/:id', async (req, res) => {
-    res.render("Show", {pokemon: Pokemon[req.params.id]})
+    try {
+      const foundPokemon = await Pokemon.findById(req.params.id);
+    res.render("./Show", {
+      pokemon: foundPokemon,
+    });
+  } catch (err) {
+    res.status(400).send(err);
+  }
   });
-    // const foundPokemon = await Pokemon(req.params.id)
-    // console.log("foundPokemon", foundPokemon)
+    
+    
     
 // Listen
 app.listen(PORT, () => {
